@@ -4,6 +4,7 @@ from operator import index
 from readline import append_history_file
 from sys import argv
 import os
+from urllib.parse import ParseResultBytes
 version = '1.0'
 whatisthis = 'Flaskify can generate a flask application based on given criteria.'
 args = argv
@@ -83,17 +84,55 @@ def checkArgs(args):
                     app.run(debug=True)
                     """
                     if blueprints == []:
-                        init_file = f"""
-                        from flask import Flask
-                        from .views import views
-                        app = Flask(__name__)
-                        app.register_blueprint(views, url_prefix='/')
-                        app.config['SECRET_KEY] = 'mysecretkey'
-                        """
+                        init_file = f"""from flask import Flask
+from .views import views
+app = Flask(__name__)
+app.register_blueprint(views, url_prefix='/')
+app.config['SECRET_KEY] = 'mysecretkey'"""
                     else:
-                        pass
+                        #Check for extra blueprints
+                        forLoopBlueprints = []
+                        forLoopRegister = []
+                        init_file_prep = ""
+                        init_file_reg = ""
+                        for x in blueprints:
+                            loopBP = []
+                            string = ''
+                            loopBP.append('from')
+                            loopBP.append(f'.{x}')
+                            loopBP.append('import')
+                            loopBP.append(f'{x}')
+                            for y in loopBP:
+                                string += y
+                                string += ' '
+                            forLoopBlueprints.append(string)
+                            for x in forLoopBlueprints:
+                                init_file_prep += x
+                                init_file_prep += '\n'
+                        for x in blueprints:
+                            loop_RG = []
+                            string = ''
+                            loop_RG.append('app.register_blueprint(')
+                            loop_RG.append(x)
+                            loop_RG.append(', url_prefix=\'/\')')
+                            for y in loop_RG:
+                                string += y
+                                string += ' '
+                            forLoopRegister.append(string)
+                            for x in forLoopRegister:
+                                init_file_reg += x
+                                init_file_reg += '\n'
+                        init_file = f"""from flask import Flask
+from .views import views
+{init_file_prep}
+app = Flask(__name__)
+app.register_blueprint(views, url_prefix='/')
+{init_file_reg}
+app.config['SECRET_KEY'] = 'mysecretkey'"""
                     
-                    
+                   #Init File done
+                        
+                        
 
                     mk_webapp_name = os.path.join(dir, webapp_name)
                     os.mkdir(mk_webapp_name)
@@ -105,7 +144,7 @@ def checkArgs(args):
                     os.mkdir(mk_app_name)
                     print(f"Created directory at: {mk_app_name}")
                     mk_init_name = os.path.join(mk_app_name, init_name)
-                    with open(mk_init_name, 'w') as f: f.write("This is __init__.py")
+                    with open(mk_init_name, 'w') as f: f.write(init_file)
                     print(f'Created file at: {mk_init_name}')
                     mk_views_name = os.path.join(mk_app_name, views_name)
                     with open(mk_views_name, 'w') as f: f.write("This is views.py")
