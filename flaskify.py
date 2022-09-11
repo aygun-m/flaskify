@@ -61,16 +61,6 @@ def checkArgs(args):
                     js_name = 'index.js'
                     template_directory_name = 'templates/'
                     index_name = 'index.html'
-
-                    #flaskify/blackroses/ 1
-                    #flaskify/main.py 1
-                    #flaskify/blackroses/ 1
-                        #flaskify/__init__.py 1
-                        #flaskify/views.py 1
-                        #flaskify/static/ 1
-                            #flaskify/styles.css 1
-                        #flaskify/templates 1
-                            #flaskify/index.html 1
                     main_file = f"""from {webapp_name} import app
 app.run(debug=True)"""
                     views_file = f"""from flask import Blueprint, render_template, request, session, url_for
@@ -126,11 +116,6 @@ app = Flask(__name__)
 app.register_blueprint(views, url_prefix='/')
 {init_file_reg}
 app.config['SECRET_KEY'] = 'mysecretkey'"""
-                    
-                   #Init File done
-
-                        
-
                     mk_webapp_name = os.path.join(dir, webapp_name)
                     os.mkdir(mk_webapp_name)
                     print(f"Created directory at: {mk_webapp_name}")
@@ -192,7 +177,6 @@ app.config['SECRET_KEY'] = 'mysecretkey'"""
                             path = os.path.join(path, f'{webapp_name}/static')
                             path = os.path.join(path, x)
                             with open(path, 'w') as f:f.write("")
-
                     if templates != []:
                         for x in templates:
                             path = os.path.join(dir, webapp_name)
@@ -211,6 +195,6 @@ app.config['SECRET_KEY'] = 'mysecretkey'"""
     
 </body>
 </html>""")
-
         elif os.path.isdir(path) == False:print(f"{path} is not a directory")
 checkArgs(args)
+#felsef
