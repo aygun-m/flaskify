@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 from sys import argv
 import os
-version = '1.0'
+version = '1.1'
 whatisthis = 'Flaskify can generate a flask application based on given criteria.'
 args = argv
 args = args[1:]
@@ -151,6 +151,7 @@ app.config['SECRET_KEY'] = 'mysecretkey'"""
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+    <script src="{{url_for('static', filename='index.js')}}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index</title>
 </head>
@@ -179,6 +180,7 @@ app.config['SECRET_KEY'] = 'mysecretkey'"""
                             with open(path, 'w') as f:f.write("")
                     if templates != []:
                         for x in templates:
+                            if x[-5:] != '.html': x+= '.html'
                             path = os.path.join(dir, webapp_name)
                             path = os.path.join(path, f'{webapp_name}/templates')
                             path = os.path.join(path, x)
@@ -188,6 +190,7 @@ app.config['SECRET_KEY'] = 'mysecretkey'"""
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+    <script src="{{url_for('static', filename='index.js')}}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
