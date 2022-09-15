@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 from sys import argv
 import os
-version = '1.1'
+version = '1.2'
 whatisthis = 'Flaskify can generate a flask application based on given criteria.'
 args = argv
 args = args[1:]
@@ -137,6 +137,9 @@ app.config['SECRET_KEY'] = 'mysecretkey'"""
                     mk_templates_name = os.path.join(mk_app_name, template_directory_name)
                     os.mkdir(mk_templates_name)
                     print(f"Created directory at: {mk_templates_name}")
+                    mk_js_file = os.path.join(mk_static_name, js_name)
+                    with open(mk_js_file, 'w') as f:f.write("")
+                    print(f"Created file at: {mk_js_file}")
                     mk_stylesheet_name = os.path.join(mk_static_name, stylesheet_name)
                     with open(mk_stylesheet_name, 'w') as f: f.write("""* {
     margin:0;
