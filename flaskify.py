@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 from sys import argv
 import os
-version = '1.2'
+version = '1.3'
 whatisthis = 'Flaskify can generate a flask application based on given criteria.'
 args = argv
 args = args[1:]
@@ -75,7 +75,7 @@ def index():
 from .views import views
 app = Flask(__name__)
 app.register_blueprint(views, url_prefix='/')
-app.config['SECRET_KEY] = 'mysecretkey'"""
+app.config['SECRET_KEY'] = 'mysecretkey'"""
                     else:
                         #Check for extra blueprints
                         forLoopBlueprints = []
